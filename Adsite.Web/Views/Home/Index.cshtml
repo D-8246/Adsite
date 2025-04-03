@@ -1,0 +1,32 @@
+﻿@using Adsite.Data
+@model IndexViewModel
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <div class="row">
+            @foreach (Ad ad in Model.Ads)
+            {
+                <div class="col-md-6 offset-md-3">
+                    <div class="bg-light rounded-3 p-5 mt-3">
+                        <h5>Listed by @ad.Name</h5>
+                        <h5>Listed on @ad.Date.ToLongDateString()</h5>
+                        <h5>Phone Number: @ad.Number</h5>
+                        <h3>Details:</h3>
+                        <p>@ad.Description</p>
+                        @if (Model.MyAds != null)
+                        {
+                            @if (Model.MyAds.Contains(ad.Id))
+                            {
+                                <form method="post" action="/Home/DeleteAd">
+                                    <input type="hidden" name="id" value="@ad.Id" />
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </main>
+</div>
+
